@@ -1,0 +1,56 @@
+
+<div ng-controller="imagesCtrl">
+<br /><br />
+	<div id="pictures" class="span12">
+	<!-- We have two layouts. We choose which one to show depending on the "layout" binding -->
+		<ul>
+		<!-- A view with big photos and no text -->
+			<li ng-repeat="p in allpics | reverse">
+			<b>{{p.links.count}}</b><a href="" ng-click="setImage(p)"><img ng-src="{{p.images.thumbnail.url}}" /></a>
+			</li>
+		</ul>
+	</div>
+	<script type="text/ng-template" id="modal.html">
+		<div class="modal-header">
+            <h3>Image Detail</h3>
+        </div>
+        <div id="myModal" class="modal-body">
+         <img src="{{image.image}}">
+         {{image.caption}}
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">Add to Slideshow</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+	</div>
+	</script>
+	<script type="text/ng-template" id="editmodal.html">
+		<div class="modal-header">
+            <h3>Edit/Remove Image</h3>
+        </div>
+        <div id="myModal" class="modal-body">
+         <img src="{{image.image}}">
+         <textarea class="span5" ng-model="image.caption" rows="5"></textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="save()">Save</button>
+            <button class="btn btn-warning" ng-click="remove()">Remove from Slideshow</button>
+        </div>
+	</div>
+	</script>
+	<div id="slideshow">
+	   <h3>Slideshow Contents</h3>
+	   click on an image to edit/remove it
+	   	<div style="display: block; clear: all;">
+    <button class="btn btn-primary" ng-click="generate()">Generate Slideshow</button>
+	</div>
+		<ul ui:sortable ui:model="results">
+			<li ng:repeat="p in results">
+			<a href="" ng:click="editImage($index)"><img ng:src="{{p.thumb}}" /></a>
+			</li>
+		</ul>
+		<br/>
+	</div>
+</div>
+
+
